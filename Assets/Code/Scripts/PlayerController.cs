@@ -1,7 +1,8 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController:MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     InputAction moveAction;
     InputAction sprintAction;
@@ -13,7 +14,7 @@ public class PlayerController:MonoBehaviour
     private float playerSpeed;
     private bool isSprinting;
     public bool isSneaking;
-    
+
 
 
     private void Start()
@@ -27,34 +28,37 @@ public class PlayerController:MonoBehaviour
     void FixedUpdate()
     {
         PlayerMovement();
-        Debug.Log(isSprinting);
-
     }
 
     void PlayerMovement()
     {
         Vector2 moveDirection = moveAction.ReadValue<Vector2>();
         player.linearVelocity = moveDirection * playerSpeed;
-
+        //Sprinting
         if (sprintAction.IsPressed())
         {
             isSprinting = true;
             playerSpeed = playerSprintSpeed;
-        }else
+        }
+        else
         {
             isSprinting = false;
             playerSpeed = playerWalkSpeed;
         }
-
+        //Sneaking
         if (sneakAction.IsPressed() && isSprinting == false)
         {
             isSneaking = true;
             playerSpeed = playerSneakSpeed;
-        } else
+        }
+        else
         {
             isSneaking = false;
         }
 
     }
+
+  
+    
 
 }

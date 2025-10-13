@@ -166,8 +166,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   player: {fileID: 778182864}
-  playerSpeed: 5
+  playerWalkSpeed: 5
   playerSprintSpeed: 10
+  playerSneakSpeed: 2
+  isSneaking: 0
 --- !u!50 &778182864
 Rigidbody2D:
   serializedVersion: 5
