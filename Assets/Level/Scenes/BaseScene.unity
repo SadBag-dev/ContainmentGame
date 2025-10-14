@@ -169,6 +169,8 @@ MonoBehaviour:
   playerWalkSpeed: 5
   playerSprintSpeed: 10
   playerSneakSpeed: 2
+  staminaLossRate: 20
+  staminaRecoveryRate: 20
   isSneaking: 0
 --- !u!50 &778182864
 Rigidbody2D:

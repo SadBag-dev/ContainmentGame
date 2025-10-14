@@ -1,6 +1,8 @@
+using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +14,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerSprintSpeed;
     [SerializeField] private float playerSneakSpeed;
     private float playerSpeed;
+    private float playerStamina;
+    private float maxStamina = 100;
+    private float minStamina = 0;
+    public float staminaLossRate;
+    public float staminaRecoveryRate;
     private bool isSprinting;
     public bool isSneaking;
 
@@ -20,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerSpeed = playerWalkSpeed;
+        playerStamina = maxStamina;
         moveAction = InputSystem.actions.FindAction("Move");
         sprintAction = InputSystem.actions.FindAction("Sprint");
         sneakAction = InputSystem.actions.FindAction("Sneak");
@@ -28,6 +36,8 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         PlayerMovement();
+        Stamina();
+        Debug.Log(playerStamina);
     }
 
     void PlayerMovement()
@@ -57,8 +67,18 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    void Stamina()
+    {
+        if (isSprinting == true)
+        {
+            playerStamina -= staminaLossRate * Time.deltaTime;
+            playerStamina = Mathf.Clamp(playerStamina, minStamina, maxStamina);
+        }
 
-  
-    
-
+        if (isSprinting == false)
+        {
+            playerStamina += staminaRecoveryRate * Time.deltaTime;
+            playerStamina = Mathf.Clamp(playerStamina, minStamina, maxStamina);
+        }
+    }
 }
